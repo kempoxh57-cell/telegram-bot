@@ -11,16 +11,19 @@ try:
 except ImportError:
     raise SystemExit("Missing dependency: yt-dlp. Install it with `pip install yt-dlp`.")
 
-# 1. Replace with your actual Bot token
-BOT_TOKEN = "8668105202:AAH-PWEZ9PcpMcrDDRix1JR5XyVqXGbCs1c"
+# 1. Bot token should be provided through an environment variable for security.
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+if not BOT_TOKEN:
+    raise SystemExit("Missing BOT_TOKEN environment variable. Set it with `BOT_TOKEN=your_token_here`.")
+
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # 2. Create a local folder to temporarily store videos
-DOWNLOAD_DIR = "downloads"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+DOWNLOAD_DIR = os.path.join(SCRIPT_DIR, "downloads")
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 # Donation QR image path (Updated to point to the qr-code folder)
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DONATION_QR_PATH = os.path.join(SCRIPT_DIR, "qr-code", "QRCode.jpg")
 
 # 3. Dictionary to temporarily hold links
