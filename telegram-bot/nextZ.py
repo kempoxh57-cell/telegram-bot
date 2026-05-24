@@ -25,6 +25,11 @@ os.makedirs(DOWNLOAD_DIR, exist_ok=True)
 
 # Donation QR image path (Updated to point to the qr-code folder)
 DONATION_QR_PATH = os.path.join(SCRIPT_DIR, "qr-code", "QRCode.jpg")
+if not os.path.exists(DONATION_QR_PATH):
+    raise SystemExit(
+        f"Missing donation QR image: {DONATION_QR_PATH}. "
+        "Place the file in the telegram-bot/qr-code folder."
+    )
 
 # 3. Dictionary to temporarily hold links
 user_links = {}
